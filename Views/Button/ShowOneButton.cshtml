@@ -1,0 +1,16 @@
+﻿@model MinesweeperCLC.Models.ButtonModel
+
+@{
+    string[] names = { "button1.png", "button2.png", "button3.png" };
+    string value = 2 + "";
+}
+
+<button class="game-button" type="submit" value=@value name="buttonNumber" asp-controller="Button" asp-action="HandelButtonClick">
+    <img class="game-button-image" src="~/img/@names[Model.ButtonState]" />
+    <div class="button-label">
+        @value
+        ,
+        @Model.ButtonState
+
+    </div>
+</button>
