@@ -44,7 +44,10 @@
                 <div class="line-break"> </div>
             }
 
-            
+            if (Model.ElementAt(i).ButtonState == 3)
+                {
+                    <script>alert("You Lost the game. Please go back to Home for a new Game.")</script>
+                }
 
     <div class="oneButton" id=@i>
         <button class="game-button" type="submit" value=@i name="buttonNumber" asp-controller="Button" asp-action="HandelButtonClick">
