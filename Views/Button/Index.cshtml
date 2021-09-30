@@ -7,6 +7,7 @@
     }
     .game-button-image {
         width: 70px;
+        position: relative;
     }
     .button-zone {
         display:flex;
@@ -22,6 +23,11 @@
         text-align: center;
         margin: 0px;
     }
+    .center {
+        position: center;
+    }
+   
+
 </style>
 
 @{
@@ -31,7 +37,11 @@
 <p>Current Time: @DateTime.Now</p>
 
 
-
+<div>
+    <input type="button" value="Save" />
+    <input type="button" value="Load Game" />
+    <a class="nav-link text-dark" asp-area="" asp-controller="Button" asp-action="Index">Restart Game</a>
+</div>
 
 
 <form>
@@ -44,19 +54,24 @@
                 <div class="line-break"> </div>
             }
 
-            if (Model.ElementAt(i).ButtonState == 3)
-                {
-                    <script>alert("You Lost the game. Please go back to Home for a new Game.")</script>
-                }
+            <div class="oneButton" id=@i>
+                    <button class="game-button" type="submit" value=@i name="buttonNumber" asp-controller="Button" asp-action="HandelButtonClick">
+                        <img class="game-button-image" src="~/img/@names[Model.ElementAt(i).ButtonState]" />
+                        <div class="center">
+                            @Model.ElementAt(i).NumberOfNeighbors
+                        </div>
+                           
 
-    <div class="oneButton" id=@i>
-        <button class="game-button" type="submit" value=@i name="buttonNumber" asp-controller="Button" asp-action="HandelButtonClick">
-            <img class="game-button-image" src="~/img/@names[Model.ElementAt(i).ButtonState]" />
-            <div class="button-label">
+                        <div class="button-label">
+
+                        </div>
+                    </button>
+                
             </div>
-        </button>
-    </div>
-
+            if (Model.ElementAt(i).ButtonState == 3)
+            {
+                <script>alert("You Lost the game. Please go back to Home for a new Game.")</script>
+            }
         }
 
     </div>
@@ -64,4 +79,3 @@
 
 </form>
 
-    

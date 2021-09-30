@@ -33,7 +33,7 @@ namespace MinesweeperCLC.Controllers
 
         public IActionResult HandelButtonClick(string buttonNumber)
         {
-
+            //buttons.ElementAt(i).NumberOfNeighbors = gameBoard.Grid[row, col].LiveNeighbors;
             int bN = int.Parse(buttonNumber);
             int row = buttons.ElementAt(bN).Row;
             int col = buttons.ElementAt(bN).Col;
@@ -45,10 +45,17 @@ namespace MinesweeperCLC.Controllers
                     {
                         buttons.ElementAt(i).ButtonState = 1;
                     }
-                       
+                    
                 }
             }
-            System.Diagnostics.Debug.WriteLine("Update Board");
+            for (int i = 0; i < buttons.Count; i++)
+            {
+                buttons.ElementAt(i).NumberOfNeighbors = gameBoard.Grid[buttons.ElementAt(i).Row, buttons.ElementAt(i).Col].LiveNeighbors;
+            }
+
+
+
+                System.Diagnostics.Debug.WriteLine("Update Board");
 
 
             return View("Index", buttons);
@@ -61,7 +68,7 @@ namespace MinesweeperCLC.Controllers
             int row = buttons.ElementAt(buttonNumber).Row;
             int col = buttons.ElementAt(buttonNumber).Col;
 
-            if (gameBoard.Grid[row, col].Live)
+            if (gameBoard.Grid[row, col].Live && !gameBoard.Grid[row, col].Flagged)
             {
                 buttons.ElementAt(buttonNumber).ButtonState = 3;
                 // You loose the game
@@ -87,7 +94,7 @@ namespace MinesweeperCLC.Controllers
             gameBoard.Grid[row, col].Flagged = true;
             buttons.ElementAt(buttonNumber).ButtonState = 2;
 
-            return PartialView("ShowOneButton", buttons.ElementAt(buttonNumber));
+            return PartialView(buttons.ElementAt(buttonNumber));
         }
 
 
